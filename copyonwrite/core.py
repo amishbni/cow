@@ -89,6 +89,11 @@ class Cow:
             if index is not None or default is not None:
                 raise TypeError("set.pop() takes no arguments.")
             return self.data.pop()
+        if isinstance(self.data, list):
+            if default is not None:
+                raise TypeError("list.pop() expected at most 1 argument, got 2")
+            index = -1 if index is None else index
+            return self.data.pop(index)
         return self.data.pop(index, default)
 
     def popitem(self):

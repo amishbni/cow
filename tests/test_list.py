@@ -24,6 +24,13 @@ class TestCoWList(unittest.TestCase):
         self.assertEqual(self.cow_list, [1, 2, 3, 4, 5, 6])
         self.assertEqual(self.original_list, [1, 2, 3, 4])  # Ensure original is unchanged
 
+    def test_pop_triggers_cow(self):
+        """Test if pop triggers Copy-on-Write."""
+        popped_item = self.cow_list.pop()
+        self.assertEqual(popped_item, 4)
+        self.assertEqual(self.cow_list, [1, 2, 3])
+        self.assertEqual(self.original_list, [1, 2, 3, 4])
+
     def test_getitem_does_not_trigger_cow(self):
         """Test if getting an item does NOT trigger Copy-on-Write."""
         value = self.cow_list[2]
