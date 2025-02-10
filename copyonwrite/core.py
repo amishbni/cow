@@ -71,6 +71,32 @@ class Cow:
     def add(self, value):
         if not isinstance(self.data, set):
             raise TypeError("add() is only supported for sets.")
+        self._copy_on_write()
+        self.data.add(value)
+
+    def clear(self):
+        if not isinstance(self.data, dict):
+            raise TypeError("clear() is only supported for dicts.")
+        self._copy_on_write()
+        self.data.clear()
+
+    def pop(self, value):
+        if not isinstance(self.data, dict):
+            raise TypeError("pop() is only supported for dicts.")
+        self._copy_on_write()
+        return self.data.pop(value)
+
+    def popitem(self):
+        if not isinstance(self.data, dict):
+            raise TypeError("popitem() is only supported for dicts.")
+        self._copy_on_write()
+        return self.data.popitem()
+
+    def update(self, values):
+        if not isinstance(self.data, dict):
+            raise TypeError("update() is only supported for dicts.")
+        self._copy_on_write()
+        self.data.update(values)
 
 
 def cow(data: Any) -> Cow:
