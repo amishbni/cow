@@ -1,0 +1,12 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "copyonwrite"
+version = "0.1.0"
+description = "Copy-on-Write for Python's mutable data structures"
+readme = "README.md"
+authors = [{ name = "Amir Shabani", email = "ami.shbni@gmail.com" }]
+license = { file = "LICENSE" }
+dependencies = []
