@@ -1,6 +1,6 @@
 from copy import deepcopy
 
-from typing import Any
+from typing import Any, Optional
 
 class Cow:
     """A generic Copy-on-Write wrapper for mutable data structures."""
@@ -74,17 +74,35 @@ class Cow:
         self._copy_on_write()
         self.data.add(value)
 
+    def remove(self, value):
+        if not isinstance(self.data, set):
+            raise TypeError("remove() is only supported for sets.")
+        self._copy_on_write()
+        self.data.remove(value)
+
+    def discard(self, value) -> None:
+        if not isinstance(self.data, set):
+            raise TypeError("discard() is only supported for sets.")
+        self._copy_on_write()
+        self.data.discard(value)
+
     def clear(self):
-        if not isinstance(self.data, dict):
-            raise TypeError("clear() is only supported for dicts.")
+        if not isinstance(self.data, (dict, set)):
+            raise TypeError("clear() is only supported for dicts and sets.")
         self._copy_on_write()
         self.data.clear()
 
-    def pop(self, value):
-        if not isinstance(self.data, dict):
-            raise TypeError("pop() is only supported for dicts.")
+    def pop(self, index: Optional[Any] = None, default: Optional[Any] = None) -> Any:
+        if not isinstance(self.data, (dict, set)):
+            raise TypeError("pop() is only supported for dicts and sets.")
         self._copy_on_write()
-        return self.data.pop(value)
+        if isinstance(self.data, set):
+            if index is not None and default is not None:
+                raise TypeError("set.pop() takes no arguments (2 given)")
+            if index is not None or default is not None:
+                raise TypeError("set.pop() takes no arguments (1 given)")
+            return self.data.pop()
+        return self.data.pop(index, default)
 
     def popitem(self):
         if not isinstance(self.data, dict):
