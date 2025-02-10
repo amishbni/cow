@@ -97,10 +97,8 @@ class Cow:
             raise TypeError("pop() is only supported for dicts and sets.")
         self._copy_on_write()
         if isinstance(self.data, set):
-            if index is not None and default is not None:
-                raise TypeError("set.pop() takes no arguments (2 given)")
             if index is not None or default is not None:
-                raise TypeError("set.pop() takes no arguments (1 given)")
+                raise TypeError("set.pop() takes no arguments.")
             return self.data.pop()
         return self.data.pop(index, default)
 
