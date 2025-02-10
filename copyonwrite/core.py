@@ -60,44 +60,30 @@ class Cow:
         return self.data == (other.data if isinstance(other, Cow) else other)
 
     def append(self, value):
-        if not isinstance(self.data, list):
-            raise TypeError("append() is only supported for lists.")
         self._copy_on_write()
         self.data.append(value)
 
     def extend(self, values):
-        if not isinstance(self.data, list):
-            raise TypeError("extend() is only supported for lists.")
         self._copy_on_write()
         self.data.extend(values)
 
     def add(self, value):
-        if not isinstance(self.data, set):
-            raise TypeError("add() is only supported for sets.")
         self._copy_on_write()
         self.data.add(value)
 
     def remove(self, value):
-        if not isinstance(self.data, set):
-            raise TypeError("remove() is only supported for sets.")
         self._copy_on_write()
         self.data.remove(value)
 
     def discard(self, value) -> None:
-        if not isinstance(self.data, set):
-            raise TypeError("discard() is only supported for sets.")
         self._copy_on_write()
         self.data.discard(value)
 
     def clear(self):
-        if not isinstance(self.data, (dict, set)):
-            raise TypeError("clear() is only supported for dicts and sets.")
         self._copy_on_write()
         self.data.clear()
 
     def pop(self, index: Optional[Any] = None, default: Optional[Any] = None) -> Any:
-        if not isinstance(self.data, (dict, set)):
-            raise TypeError("pop() is only supported for dicts and sets.")
         self._copy_on_write()
         if isinstance(self.data, set):
             if index is not None or default is not None:
@@ -106,14 +92,10 @@ class Cow:
         return self.data.pop(index, default)
 
     def popitem(self):
-        if not isinstance(self.data, dict):
-            raise TypeError("popitem() is only supported for dicts.")
         self._copy_on_write()
         return self.data.popitem()
 
     def update(self, values):
-        if not isinstance(self.data, dict):
-            raise TypeError("update() is only supported for dicts.")
         self._copy_on_write()
         self.data.update(values)
 
