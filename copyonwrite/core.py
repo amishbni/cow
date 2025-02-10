@@ -19,6 +19,9 @@ class Cow:
             return self._private_data
         return self._shared_data
 
+    def __add__(self, other: Any) -> "Cow":
+        return self.data + (other.data if isinstance(other, Cow) else other)
+
     def __getattr__(self, item):
         return getattr(self.data, item)
 
