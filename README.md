@@ -18,7 +18,7 @@
 ---
 
 ## 📦 Installation
-### **Install via pip (Coming Soon on PyPI)**
+### **Install via pip**
 ```sh
 pip install copyonwrite
 ```
